@@ -1,16 +1,10 @@
-# Automating the Dev Pipeline to Rapidly Design, Publish, and Consume APIs with Kong
+# Splitting Kong config from dumped from a WS into multiple service files.
 
-> This project assumes you are running in the [Kong Learning Lab
-environment](https://education.konghq.com/courses/course-v1:kong+KGLL-107+Perpetual/course/).
-Please reach out to your Kong Account Representative if you would like to access
-the course material.
+> This project assumes you have a huge WS file. To manage Kong declaratively, there becomes a possibility of messing this file when certain sections are added or removed from this huge file.
 
-This repository provides a template for creating your own end-to-end [APIOps
-workflow](https://konghq.com/blog/what-is-apiops) leveraging the [Kong API
-Gateway](https://konghq.com/kong/), the world's most popular API gateway.
-Following this workshop, you will:
+This repository provides a guideline to split already existing kong configs into separate individual service files. Bash scripts are output of this exercise. Below are the pre-reqs:
 
-- Using [Insomnia's](https://insomnia.rest/) `inso` CLI, convert an OpenAPI
+- YQ install where the script is executed [YQ](https://insomnia.rest/) `inso` CLI, convert an OpenAPI
   specification file into an equivalent Kong Gateway configuration format.
 - Apply the configuration to the Gateway using Kong's declarative configuration
     tool [`decK`](https://docs.konghq.com/deck/overview/)
