@@ -4,10 +4,9 @@
 
 This repository provides a guideline to split already existing kong configs into separate individual service files. Bash scripts are output of this exercise. Below are the pre-reqs:
 
-- YQ install where the script is executed [YQ](https://insomnia.rest/) `inso` CLI, convert an OpenAPI
-  specification file into an equivalent Kong Gateway configuration format.
+- `YQ` install where the script is executed [YQ](https://mikefarah.gitbook.io/yq/v/v3.x/).
 - Apply the configuration to the Gateway using Kong's declarative configuration
-    tool [`decK`](https://docs.konghq.com/deck/overview/)
+    tool [`decK Overview`](https://docs.konghq.com/deck/overview/). [`deck install`](https://docs.konghq.com/deck/latest/installation/)
 - Update the Developer Portal documentation using a single API call
 
 Here is a diagram containing the full workflow:
