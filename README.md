@@ -1,49 +1,51 @@
 # Splitting Kong config from dumped from a WS into multiple service files.
 
 > This project assumes you have a huge WS file. To manage Kong declaratively, there becomes a possibility of messing this file when certain sections are added or removed from this huge file.
+What use case this exercise is going to solve? Below are some items of the use case:
 
-This repository provides a guideline to split already existing kong configs into separate individual service files. Bash scripts are output of this exercise. Below are the pre-reqs:
+- Customers who have built kong configs via admin apis or kong manager.
+- Customers who did not tag all the components of the service with a common standard tag.
+- Now customer environment has become huge and each WS has 100s of services.
+- Now customer also want to manage their Kong configs declaratively.
+- Customer doesn't want to make the change to the huge single Kong config file but still want to make service specific changes.
+- Each service owner was not individually able to manage their service.
+
+This repository provides a guideline to split already existing kong configs into separate individual service files. Shell scripts are output of this exercise. Below are the pre-reqs:
 
 - `YQ` install where the script is executed [YQ](https://mikefarah.gitbook.io/yq/v/v3.x/).
 - Apply the configuration to the Gateway using Kong's declarative configuration
-    tool [`decK Overview`](https://docs.konghq.com/deck/overview/). [`deck install`](https://docs.konghq.com/deck/latest/installation/)
-- Update the Developer Portal documentation using a single API call
+    tool [`decK Overview`](https://docs.konghq.com/deck/overview/), [`deck install`](https://docs.konghq.com/deck/latest/installation/).
 
 Here is a diagram containing the full workflow:
 
-![Workflow Overview](assets/images/gitops-demo.png)
+![Workflow Overview](assets/Split-Kong-Cfg - Flowchart.png)
 
 This repository also includes sample Github Action runner scripts (under
 `~/.github`) that can be used to initiate the full APIOps/GitOps workflow
 out-of-the-box when running in Github.
 
-## The APIOps Workflow
+## Workflow
 
-All automation is driven by two interactions within this repository: opening a
-Pull Request (PR) or merging a commit to the `master` branch. Let's get started.
+Below are some steps involved to get through the desired state of managing a Kong config declaratively per service.
 
-### 1. Generating the Configuration
+### 1. Getting the kong `yaml` config file from a given workspace 
 
-The first step is to generate a Kong configuration from our OpenAPI
-specification file using the `inso` CLI. The output of this step is a
-declarative configuration that can be applied with `deck`.
+The first step is to get a `deck dump` from a given environment from a given WS.
 
-![Generate a Kong configuration directly from your OpenAPI
-file](assets/images/generate_config.png)
+![Generate a Kong configuration directly from deck](assets/images/generate_config.png)
 
-To generate a declarative configuration, run:
+To generate a deck dump, run:
 
 ```sh
-inso generate config ./openapi/orders.yaml --type declarative -o kong.yaml
+deck dump -w <your-workspace> --kong-addr <admin-api-url> --headers kong-admin-token:<your-token> -o <workspace_kong.yaml>
 ```
 
-Feel free to inspect the `kong.yaml` file to see what the underlying
-configuration looks like.
+Feel free to inspect the `kong.yaml` file.
 
-### 2. Validating the Configuration
+### 2. Splitting the kong.yaml Configuration
 
-The second step is to validate the configuration to ensure that it contains
-valid syntax, and that it is ready to applied to a Kong Gateway. 
+The second step is to split the kong configuration into indiviual service files.
+
 
 To validate our generated configuration file, run:
 
