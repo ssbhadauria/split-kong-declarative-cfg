@@ -32,7 +32,7 @@ Below are some steps involved to get through the desired state of managing a Kon
 
 The first step is to get a `deck dump` from a given environment from a given WS.
 
-![Generate a Kong configuration directly from deck](assets/images/generate_config.png)
+![Generate a Kong configuration directly from deck](assets/images/deck.png)
 
 ```sh
 deck dump -w <your-workspace> --kong-addr <admin-api-url> --headers kong-admin-token:<your-token> -o <workspace_kong.yaml>
