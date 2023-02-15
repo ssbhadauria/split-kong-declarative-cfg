@@ -164,9 +164,8 @@ With the kong configuration generated for each service, we can now apply tags to
 ### 4. Updating each service individually with gitOps
 
 With all the services now tagged appropriately. Each service can be individually updated by the service owning team as self service.
-
-You can find a list of all available plugins in the Kong documentation
-[here](https://docs.konghq.com/hub/).
+To know more about configuring github actions with deck to declaratively manage kong config. Please check out this [kong blog](https://konghq.com/blog/gitops-for-kong-managing-kong-declaratively-with-deck-and-github-actions)
+Also, checkout this [github project](https://github.com/ikeike443/decK-action) to set up github actions with deck with examples and instructions.
 
 ## Questions?
 
