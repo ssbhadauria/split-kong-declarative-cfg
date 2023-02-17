@@ -1,4 +1,4 @@
-name: Apply generated configuration to local Kong gateway and update API documentation
+name: Apply service configuration to Kong gateway
 
 on:
   push:
@@ -8,11 +8,11 @@ on:
 jobs:
   deploy_to_kong:
     runs-on: self-hosted
-    name: Apply generated configuration to local Kong gateway and update API documentation
+    name: Apply service configuration to Kong gateway
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Validate Kong declarative configuration
-        run: deck validate -s kong3.x.yaml
-      - name: Deploy declarative config
-        run: deck sync -s kong3.x.yaml
+      - name: Ping Kong
+        run: deck ping --kong-addr ${{ vars.GATEWAY_HOST }} --headers kong-admin-token: ${{ secrets.EC2_KONG_TOKEN_SB }}
+      - name: Check service config differences
+        run: deck diff --kong-addr ${{ vars.GATEWAY_HOST }} --headers kong-admin-token: ${{ secrets.EC2_KONG_TOKEN_SB }} -s 
