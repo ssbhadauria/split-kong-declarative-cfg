@@ -11,8 +11,10 @@ jobs:
     name: Apply service configuration to Kong gateway
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
       - name: Ping Kong
-        run: deck ping --kong-addr ${{ vars.GATEWAY_HOST }} --headers kong-admin-token: ${{ secrets.EC2_KONG_TOKEN_SB }}
+        run: "deck ping --kong-addr ${{ vars.GATEWAY_HOST }} --headers kong-admin-token: ${{ secrets.EC2_KONG_TOKEN_SB }}"
+
       - name: Check service config differences
-        run: deck diff --kong-addr ${{ vars.GATEWAY_HOST }} --headers kong-admin-token: ${{ secrets.EC2_KONG_TOKEN_SB }} -s 
+        run: "deck diff --kong-addr ${{ vars.GATEWAY_HOST }} --headers kong-admin-token: ${{ secrets.EC2_KONG_TOKEN_SB }} -s "
